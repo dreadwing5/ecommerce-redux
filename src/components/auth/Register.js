@@ -1,30 +1,32 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { setAlert } from "../../actions/alert";
 import { register } from "../../actions/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Alert from "../Layout/Alert";
 
 function Register() {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    password2: "",
+    phonenumber: "",
   });
-  const { name, email, password, password2 } = formData;
+  const { name, email, password, phonenumber } = formData;
   const dispatch = useDispatch();
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (password !== password2) {
-      dispatch(setAlert("Password do not match", "danger"));
-    } else {
-      dispatch(register(formData));
-    }
+    dispatch(register({ name, email, password }));
   };
+  //Redirect if registered successfully
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
+
   return (
     <Fragment>
       <div className="container">
@@ -44,7 +46,6 @@ function Register() {
                       className="form-control"
                       placeholder="Username"
                       name="name"
-                      required
                       autoFocus
                       value={name}
                       onChange={(e) => onChange(e)}
@@ -59,7 +60,6 @@ function Register() {
                       className="form-control"
                       name="email"
                       placeholder="Email address"
-                      required
                       value={email}
                       onChange={(e) => onChange(e)}
                     />
@@ -74,8 +74,6 @@ function Register() {
                       className="form-control"
                       name="password"
                       placeholder="Password"
-                      required
-                      minLength="6"
                       value={password}
                       onChange={(e) => onChange(e)}
                     />
@@ -84,19 +82,16 @@ function Register() {
 
                   <div className="form-label-group">
                     <input
-                      type="password"
+                      type="text"
                       id="inputConfirmPassword"
                       className="form-control"
-                      name="password2"
-                      placeholder="Confirm Password"
+                      name="phonenumber"
+                      placeholder="phonenumber"
                       required
-                      minLength="6"
-                      value={password2}
+                      value={phonenumber}
                       onChange={(e) => onChange(e)}
                     />
-                    <label htmlFor="inputConfirmPassword">
-                      Confirm password
-                    </label>
+                    <label htmlFor="inputConfirmPassword">Phone Number</label>
                   </div>
 
                   <button

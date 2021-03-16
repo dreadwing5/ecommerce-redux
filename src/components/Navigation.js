@@ -2,13 +2,15 @@ import React from "react";
 import { Nav, NavItem } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSelector } from "react-redux";
+import { logout } from "../actions/auth";
 import {
   faSearch,
   faHome,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
-const tabs = [
+const guestLinks = [
   {
     route: "/home",
     icon: faHome,
@@ -25,8 +27,29 @@ const tabs = [
     label: "Login",
   },
 ];
+const authLinks = [
+  {
+    route: "/home",
+    label: "Home",
+    icon: faHome,
+  },
+  {
+    route: "/search",
+    label: "Search",
+    icon: faSearch,
+  },
+  {
+    route: "/logout",
+    label: "Logout",
+    icon: faUserCircle,
+  },
+];
 
 const Navigation = (props) => {
+  const { isAuthenticated, loading } = useSelector((state) => state.auth);
+
+  const navLinks = isAuthenticated ? authLinks : guestLinks;
+
   return (
     <div>
       {/* Top Bar */}
@@ -35,41 +58,38 @@ const Navigation = (props) => {
         role="navigation"
       >
         <div className="container-fluid">
-          <a href="/" className="navbar-brand">
+          <a href="/home" className="navbar-brand">
             Brand
           </a>
           <Nav className="ml-auto">
-            <NavItem>
-              <NavLink to="/search" exact className="nav-link">
-                Search
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink to="/login" className="nav-link">
-                Login
-              </NavLink>
-            </NavItem>
+            {navLinks.map((link, index) => (
+              <NavItem key={`link-${index}`}>
+                <NavLink to={link.route} className="nav-link">
+                  {link.label}
+                </NavLink>
+              </NavItem>
+            ))}
           </Nav>
         </div>
       </nav>
 
       {/* Bottom Tab Navigation */}
       <nav
-        className="navbar fixed-bottom navbar-light bottom-tab-nav d-block d-lg-none"
+        className="navbar fixed-bottom navbar-light bottom-link-nav d-block d-lg-none"
         role="navigation"
       >
         <Nav className="w-100">
           <div className=" d-flex flex-row justify-content-around w-100">
-            {tabs.map((tab, index) => (
-              <NavItem key={`tab-${index}`}>
+            {navLinks.map((link, index) => (
+              <NavItem key={`link-${index}`}>
                 <NavLink
-                  to={tab.route}
+                  to={link.route}
                   className="nav-link bottom-nav-link"
                   activeClassName="active"
                 >
                   <div className="row d-flex flex-column justify-content-center align-items-center">
-                    <FontAwesomeIcon size="lg" icon={tab.icon} />
-                    <div className="bottom-tab-label">{tab.label}</div>
+                    <FontAwesomeIcon size="lg" icon={link.icon} />
+                    <div className="bottom-tab-label">{link.label}</div>
                   </div>
                 </NavLink>
               </NavItem>

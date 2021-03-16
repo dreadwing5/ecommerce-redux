@@ -1,11 +1,17 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../../actions/auth";
+import Alert from "../Layout/Alert";
+import { useSelector } from "react-redux";
 function Login() {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [formData, setFormData] = useState({
-    email: "",
+    user_phone: "",
     password: "",
   });
-  const { email, password } = formData;
+  const { user_phone, password } = formData;
+  const dispatch = useDispatch();
 
   const onChange = (e) =>
     setFormData({
@@ -14,8 +20,12 @@ function Login() {
     });
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    dispatch(login(user_phone, password));
   };
+  //Redirect if logged in
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
   return (
     <Fragment>
       <div className="container">
@@ -24,6 +34,7 @@ function Login() {
             <div className="card card-signin flex-row my-5">
               <div className="card-img-left d-none d-md-flex"></div>
               <div className="card-body">
+                <Alert />
                 <h5 className="card-title text-center">Login</h5>
                 <form className="form-signin" onSubmit={(e) => onSubmit(e)}>
                   <div className="form-label-group">
@@ -32,10 +43,9 @@ function Login() {
                       id="inputUsername"
                       className="form-control"
                       placeholder="Email Address"
-                      name="email"
-                      value={email}
+                      name="user_phone"
+                      value={user_phone}
                       onChange={(e) => onChange(e)}
-                      required
                       autoFocus
                     />
                     <label htmlFor="inputUsername">Username</label>
@@ -50,7 +60,6 @@ function Login() {
                       placeholder="Password"
                       value={password}
                       onChange={(e) => onChange(e)}
-                      required
                     />
                     <label htmlFor="inputPassword">Password</label>
                   </div>
