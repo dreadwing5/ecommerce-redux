@@ -31,8 +31,18 @@ export const loadUser = () => async (dispatch) => {
 };
 
 // Register User
-export const register = (formData) => async (dispatch) => {
+export const register = ({ name, password, email, phonenumber }) => async (
+  dispatch
+) => {
   try {
+    const formData = {
+      user_name: name,
+      user_phone: phonenumber,
+      user_email: email,
+      password: password,
+    };
+    console.log(formData);
+
     const res = await api.post("/signUp", formData);
 
     dispatch({
@@ -56,7 +66,6 @@ export const register = (formData) => async (dispatch) => {
 // Login User
 export const login = (user_phone, password) => async (dispatch) => {
   const body = { user_phone, password };
-  console.log(body);
 
   try {
     const res = await api.post("/login", body);
@@ -65,17 +74,16 @@ export const login = (user_phone, password) => async (dispatch) => {
       payload: res.data,
     });
 
-    dispatch(loadUser());
+    // dispatch(loadUser());
   } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
-    }
-
-    dispatch({
-      type: LOGIN_FAIL,
-    });
+    console.log(err);
+    // const errors = err.response.data.errors;
+    // if (errors) {
+    //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    // }
+    // dispatch({
+    //   type: LOGIN_FAIL,
+    // });
   }
 };
 

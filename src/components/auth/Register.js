@@ -20,7 +20,7 @@ function Register() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(register({ name, email, password }));
+    dispatch(register({ name, email, password, phonenumber }));
   };
   //Redirect if registered successfully
   if (isAuthenticated) {

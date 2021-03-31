@@ -49,5 +49,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },  "proxy": "http://straightstudio.tk"
+  },  "proxy": "http://localhost/public_html/"
 }
