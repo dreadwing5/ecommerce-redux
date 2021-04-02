@@ -54,27 +54,20 @@ function Register() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    name: "",
     email: "",
     password: "",
     phonenumber: "",
   });
 
-  const { firstName, lastName, name, email, password, phonenumber } = formData;
+  const { firstName, lastName, email, password, phonenumber } = formData;
   const dispatch = useDispatch();
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
-    setFormData({
-      ...formData,
-      name: `${firstName} ${lastName}`,
-      firstName: "",
-      lastName: "",
-    });
     e.preventDefault();
-    dispatch(register({ name, email, password, phonenumber }));
+    dispatch(register({ firstName, lastName, email, password, phonenumber }));
   };
 
   //Redirect if registered successfully

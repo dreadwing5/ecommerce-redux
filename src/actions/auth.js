@@ -31,12 +31,16 @@ export const loadUser = () => async (dispatch) => {
 };
 
 // Register User
-export const register = ({ name, password, email, phonenumber }) => async (
-  dispatch
-) => {
+export const register = ({
+  firstName,
+  lastName,
+  password,
+  email,
+  phonenumber,
+}) => async (dispatch) => {
   try {
     const formData = {
-      user_name: name,
+      user_name: firstName || lastName ? `${firstName} ${lastName}` : "",
       user_phone: `+91${phonenumber}`,
       user_email: email,
       password: password,
