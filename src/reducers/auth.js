@@ -5,8 +5,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  // LOGOUT,
-  // ACCOUNT_DELETED,
+  LOGOUT,
 } from "../actions/types";
 
 const initialState = {
@@ -36,16 +35,7 @@ function authReducer(state = initialState, action) {
         isAuthenticated: true,
         loading: false,
       };
-    // case ACCOUNT_DELETED:
-    //   return {
-    //     ...state,
-    //     token: null,
-    //     isAuthenticated: false,
-    //     loading: false,
-    //     user: null,
-    //   };
-
-    // case LOGOUT:
+    case LOGOUT:
     case AUTH_ERROR:
     case REGISTER_FAIL:
     case LOGIN_FAIL:

@@ -4,6 +4,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import Logout from "./components/auth/Logout";
+
 //Redux
 import { Provider } from "react-redux";
 import store from "./store";
@@ -32,6 +34,7 @@ function App() {
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
+            <Route path="/logout" component={Logout} />
           </Switch>
         </Fragment>
       </BrowserRouter>

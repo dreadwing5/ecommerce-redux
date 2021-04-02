@@ -1,6 +1,7 @@
 import api from "../utils/api";
 import setAuthToken from "../utils/setAuthToken";
 import { setAlert } from "./alert";
+
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -10,7 +11,6 @@ import {
   LOGIN_FAIL,
   LOGOUT,
 } from "./types";
-
 // Load User
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
@@ -37,19 +37,17 @@ export const register = ({ name, password, email, phonenumber }) => async (
   try {
     const formData = {
       user_name: name,
-      user_phone: phonenumber,
+      user_phone: `+91${phonenumber}`,
       user_email: email,
       password: password,
     };
-    console.log(formData);
-
-    const res = await api.post("/signUp", formData);
-
+    const res = await api.post("/users", formData);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
-    // dispatch(loadUser());
+    localStorage.setItem("user-info", JSON.stringify(res.data));
+    dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -64,28 +62,31 @@ export const register = ({ name, password, email, phonenumber }) => async (
 };
 
 // Login User
-export const login = (user_phone, password) => async (dispatch) => {
-  const body = { user_phone, password };
+export const login = (phonenumber, password) => async (dispatch) => {
+  const formData = { user_phone: `+91${phonenumber}`, password: password };
 
   try {
-    const res = await api.post("/login", body);
+    const res = await api.post("/auth", formData);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
-
-    // dispatch(loadUser());
+    dispatch(loadUser());
   } catch (err) {
     console.log(err);
-    // const errors = err.response.data.errors;
-    // if (errors) {
-    //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
-    // }
-    // dispatch({
-    //   type: LOGIN_FAIL,
-    // });
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    }
+    dispatch({
+      type: LOGIN_FAIL,
+    });
   }
 };
 
 // Logout
-export const logout = () => ({ type: LOGOUT });
+export const logout = async (dispatch) => {
+  dispatch({
+    type: LOGOUT,
+  });
+};

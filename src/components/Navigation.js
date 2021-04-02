@@ -3,7 +3,7 @@ import { Nav, NavItem } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
-import { logout } from "../actions/auth";
+
 import {
   faSearch,
   faHome,

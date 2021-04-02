@@ -4,7 +4,56 @@ import { useDispatch } from "react-redux";
 import { login } from "../../actions/auth";
 import Alert from "../Layout/Alert";
 import { useSelector } from "react-redux";
+
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import InputAdornment from "@material-ui/core/InputAdornment";
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      {/* <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{" "} */}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
 function Login() {
+  const classes = useStyles();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [formData, setFormData] = useState({
     user_phone: "",
@@ -28,56 +77,81 @@ function Login() {
   }
   return (
     <Fragment>
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-10 col-xl-9 mx-auto">
-            <div className="card card-signin flex-row my-5">
-              <div className="card-img-left d-none d-md-flex"></div>
-              <div className="card-body">
-                <Alert />
-                <h5 className="card-title text-center">Login</h5>
-                <form className="form-signin" onSubmit={(e) => onSubmit(e)}>
-                  <div className="form-label-group">
-                    <input
-                      type="text"
-                      id="inputUsername"
-                      className="form-control"
-                      placeholder="Email Address"
-                      name="user_phone"
-                      value={user_phone}
-                      onChange={(e) => onChange(e)}
-                      autoFocus
-                    />
-                    <label htmlFor="inputUsername">Username</label>
-                  </div>
-
-                  <div className="form-label-group">
-                    <input
-                      type="password"
-                      id="inputPassword"
-                      className="form-control"
-                      name="password"
-                      placeholder="Password"
-                      value={password}
-                      onChange={(e) => onChange(e)}
-                    />
-                    <label htmlFor="inputPassword">Password</label>
-                  </div>
-                  <button
-                    className="btn btn-lg btn-primary btn-block text-uppercase"
-                    type="submit"
-                  >
-                    Login
-                  </button>
-                  <p className="bottom-text">
-                    Don't have an account? <Link to="/register"> Register</Link>
-                  </p>
-                </form>
-              </div>
-            </div>
-          </div>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <Alert />
+          <form
+            className={classes.form}
+            onSubmit={(e) => onSubmit(e)}
+            noValidate
+          >
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              id="phonenumber"
+              label="Phone Number"
+              name="user_phone"
+              autoComplete="phonenumber"
+              value={user_phone}
+              onChange={(e) => onChange(e)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">+91</InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => onChange(e)}
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link to="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link to="/register" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
         </div>
-      </div>
+        <Box mt={8}>
+          <Copyright />
+        </Box>
+      </Container>
     </Fragment>
   );
 }

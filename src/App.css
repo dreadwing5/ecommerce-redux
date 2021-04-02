@@ -120,12 +120,12 @@
 }
 
 .bottom-text {
-  margin-top: 16px;
-  font-size: 1.4rem;
+  margin-top: 8px;
+  font-size: 0.9rem;
 }
 
 .bottom-text > a {
   display: inline-block;
   margin: 0 8px;
-  font-size: 1.4rem;
+  font-size: 0.9rem;
 }

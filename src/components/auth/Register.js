@@ -1,27 +1,82 @@
 import React, { Fragment, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { setAlert } from "../../actions/alert";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import InputAdornment from "@material-ui/core/InputAdornment";
+// import { setAlert } from "../../actions/alert";
 import { register } from "../../actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import Alert from "../Layout/Alert";
 
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
 function Register() {
+  const classes = useStyles();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
     name: "",
     email: "",
     password: "",
     phonenumber: "",
   });
-  const { name, email, password, phonenumber } = formData;
+
+  const { firstName, lastName, name, email, password, phonenumber } = formData;
   const dispatch = useDispatch();
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
+    setFormData({
+      ...formData,
+      name: `${firstName} ${lastName}`,
+      firstName: "",
+      lastName: "",
+    });
     e.preventDefault();
     dispatch(register({ name, email, password, phonenumber }));
   };
+
   //Redirect if registered successfully
   if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
@@ -29,87 +84,126 @@ function Register() {
 
   return (
     <Fragment>
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-10 col-xl-9 mx-auto">
-            <div className="card card-signin flex-row my-5">
-              <div className="card-img-left d-none d-md-flex"></div>
-              <div className="card-body">
-                <Alert />
-                <h5 className="card-title text-center">Register</h5>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Alert />
+          <form
+            className={classes.form}
+            onSubmit={(e) => onSubmit(e)}
+            noValidate
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="fname"
+                  name="firstName"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  value={firstName}
+                  onChange={(e) => onChange(e)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="lname"
+                  value={lastName}
+                  onChange={(e) => onChange(e)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => onChange(e)}
+                />
+              </Grid>
 
-                <form className="form-signin" onSubmit={(e) => onSubmit(e)}>
-                  <div className="form-label-group">
-                    <input
-                      type="text"
-                      id="inputUserame"
-                      className="form-control"
-                      placeholder="Username"
-                      name="name"
-                      autoFocus
-                      value={name}
-                      onChange={(e) => onChange(e)}
-                    />
-                    <label htmlFor="inputUsername">Username</label>
-                  </div>
-
-                  <div className="form-label-group">
-                    <input
-                      type="email"
-                      id="inputEmail"
-                      className="form-control"
-                      name="email"
-                      placeholder="Email address"
-                      value={email}
-                      onChange={(e) => onChange(e)}
-                    />
-                    <label htmlFor="inputEmail">Email address</label>
-                  </div>
-
-                  <hr />
-                  <div className="form-label-group">
-                    <input
-                      type="password"
-                      id="inputPassword"
-                      className="form-control"
-                      name="password"
-                      placeholder="Password"
-                      value={password}
-                      onChange={(e) => onChange(e)}
-                    />
-                    <label htmlFor="inputPassword">Password</label>
-                  </div>
-
-                  <div className="form-label-group">
-                    <input
-                      type="text"
-                      id="inputConfirmPassword"
-                      className="form-control"
-                      name="phonenumber"
-                      placeholder="phonenumber"
-                      required
-                      value={phonenumber}
-                      onChange={(e) => onChange(e)}
-                    />
-                    <label htmlFor="inputConfirmPassword">Phone Number</label>
-                  </div>
-
-                  <button
-                    className="btn btn-lg btn-primary btn-block text-uppercase"
-                    type="submit"
-                  >
-                    Register
-                  </button>
-                  <p className="bottom-text">
-                    Already have an account?
-                    <Link to="/login">Log In</Link>
-                  </p>
-                </form>
-              </div>
-            </div>
-          </div>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="phonenumber"
+                  label="Phone Number"
+                  name="phonenumber"
+                  autoComplete="phonenumber"
+                  value={phonenumber}
+                  onChange={(e) => onChange(e)}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">+91</InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => onChange(e)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox value="allowExtraEmails" color="primary" />
+                  }
+                  label="I want to receive inspiration, marketing promotions and updates via email."
+                />
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign Up
+            </Button>
+            <Grid container justify="flex-end">
+              <Grid item>
+                <Link to="/login" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
         </div>
-      </div>
+        <Box mt={5}>
+          <Copyright />
+        </Box>
+      </Container>
     </Fragment>
   );
 }
