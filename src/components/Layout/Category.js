@@ -7,13 +7,18 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import ImageIcon from "@material-ui/icons/Image";
-import WorkIcon from "@material-ui/icons/Work";
-import BeachAccessIcon from "@material-ui/icons/BeachAccess";
 import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { theme } from "../theme";
+import Care from "../../img/icons/Care.jpeg";
+import ColorLab from "../../img/icons/ColorLab.jpeg";
+import CutStyle from "../../img/icons/Cut&Style.jpeg";
+import Package from "../../img/icons/Package.jpeg";
+import PediMani from "../../img/icons/Pedi-mani.jpeg";
+import Texture from "../../img/icons/Texture.jpeg";
+import Threading from "../../img/icons/Threading.jpeg";
+import Waxing from "../../img/icons/Texture.jpeg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,66 +46,50 @@ function Category() {
         <GridList className={classes.root} cols={3} cellHeight={80}>
           <ListItem component={Link} to="/design" className={classes.link}>
             <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
+              <Avatar src={CutStyle} />
             </ListItemAvatar>
 
             <Typography>Cut and Style</Typography>
           </ListItem>
           <ListItem component={Link} to="/design">
             <ListItemAvatar>
-              <Avatar>
-                <WorkIcon />
-              </Avatar>
+              <Avatar src={Texture} />
             </ListItemAvatar>
             <Typography>Texture</Typography>
           </ListItem>
           <ListItem component={Link} to="/design">
             <ListItemAvatar>
-              <Avatar>
-                <BeachAccessIcon />
-              </Avatar>
+              <Avatar src={ColorLab} />
             </ListItemAvatar>
             <ListItemText primary="Color Lab" />
           </ListItem>
           <ListItem component={Link} to="/design">
             <ListItemAvatar>
-              <Avatar>
-                <BeachAccessIcon />
-              </Avatar>
+              <Avatar src={Care} />
             </ListItemAvatar>
             <ListItemText primary="Care" />
           </ListItem>
           <ListItem component={Link} to="/design">
             <ListItemAvatar>
-              <Avatar>
-                <BeachAccessIcon />
-              </Avatar>
+              <Avatar src={Package} />
             </ListItemAvatar>
             <ListItemText primary="Package" />
           </ListItem>
           <ListItem component={Link} to="/design">
             <ListItemAvatar>
-              <Avatar>
-                <BeachAccessIcon />
-              </Avatar>
+              <Avatar src={Waxing} />
             </ListItemAvatar>
             <ListItemText primary="Waxing" />
           </ListItem>
           <ListItem component={Link} to="/design">
             <ListItemAvatar>
-              <Avatar>
-                <BeachAccessIcon />
-              </Avatar>
+              <Avatar src={PediMani} />
             </ListItemAvatar>
             <ListItemText primary="Pedi-Mani" />
           </ListItem>
           <ListItem component={Link} to="/design">
             <ListItemAvatar>
-              <Avatar>
-                <BeachAccessIcon />
-              </Avatar>
+              <Avatar src={Threading} />
             </ListItemAvatar>
             <ListItemText primary="Threading" />
           </ListItem>
