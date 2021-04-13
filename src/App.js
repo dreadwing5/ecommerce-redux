@@ -1,10 +1,12 @@
 import React, { Fragment, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Navigation from "./components/Navigation";
+// import Navigation from "./components/Layout/Navigation";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Logout from "./components/auth/Logout";
+import Home from "./components/Layout/Home";
+import Category from "./components/Layout/Category";
 
 //Redux
 import { Provider } from "react-redux";
@@ -29,12 +31,12 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Fragment>
-          <Navigation />
-
           <Switch>
+            <Route path="/" exact component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/logout" component={Logout} />
+            <Route path="/category" component={Category} />
           </Switch>
         </Fragment>
       </BrowserRouter>

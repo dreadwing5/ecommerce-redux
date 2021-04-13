@@ -72,7 +72,7 @@ function Register() {
 
   //Redirect if registered successfully
   if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/" />;
   }
 
   return (
