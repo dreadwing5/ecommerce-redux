@@ -7,6 +7,7 @@ import Register from "./components/auth/Register";
 import Logout from "./components/auth/Logout";
 import Home from "./components/Layout/Home";
 import Category from "./components/Layout/Category";
+import Calendar from "./components/Calendar"
 
 //Redux
 import { Provider } from "react-redux";
@@ -37,6 +38,8 @@ function App() {
             <Route path="/register" component={Register} />
             <Route path="/logout" component={Logout} />
             <Route path="/category" component={Category} />
+            <Route path="/calendar" component={Calendar} />
+
           </Switch>
         </Fragment>
       </BrowserRouter>
