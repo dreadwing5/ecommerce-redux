@@ -44,50 +44,50 @@ function Category() {
       <Navigation />
       <ThemeProvider theme={theme}>
         <GridList className={classes.root} cols={3} cellHeight={80}>
-          <ListItem component={Link} to="/design" className={classes.link}>
+          <ListItem component={Link} to="/cart" className={classes.link}>
             <ListItemAvatar>
               <Avatar src={CutStyle} />
             </ListItemAvatar>
 
             <Typography>Cut and Style</Typography>
           </ListItem>
-          <ListItem component={Link} to="/design">
+          <ListItem component={Link} to="/cart">
             <ListItemAvatar>
               <Avatar src={Texture} />
             </ListItemAvatar>
             <Typography>Texture</Typography>
           </ListItem>
-          <ListItem component={Link} to="/design">
+          <ListItem component={Link} to="/cart">
             <ListItemAvatar>
               <Avatar src={ColorLab} />
             </ListItemAvatar>
             <ListItemText primary="Color Lab" />
           </ListItem>
-          <ListItem component={Link} to="/design">
+          <ListItem component={Link} to="/cart">
             <ListItemAvatar>
               <Avatar src={Care} />
             </ListItemAvatar>
             <ListItemText primary="Care" />
           </ListItem>
-          <ListItem component={Link} to="/design">
+          <ListItem component={Link} to="/cart">
             <ListItemAvatar>
               <Avatar src={Package} />
             </ListItemAvatar>
             <ListItemText primary="Package" />
           </ListItem>
-          <ListItem component={Link} to="/design">
+          <ListItem component={Link} to="/cart">
             <ListItemAvatar>
               <Avatar src={Waxing} />
             </ListItemAvatar>
             <ListItemText primary="Waxing" />
           </ListItem>
-          <ListItem component={Link} to="/design">
+          <ListItem component={Link} to="/cart">
             <ListItemAvatar>
               <Avatar src={PediMani} />
             </ListItemAvatar>
             <ListItemText primary="Pedi-Mani" />
           </ListItem>
-          <ListItem component={Link} to="/design">
+          <ListItem component={Link} to="/cart">
             <ListItemAvatar>
               <Avatar src={Threading} />
             </ListItemAvatar>

@@ -1,0 +1,18 @@
+#basket {
+  margin-top: 120px;
+  padding-bottom: 30px;
+}
+
+.actions {
+  margin-top: 20px;
+}
+
+.actions a {
+  color: #000000;
+  margin-left: 15px;
+  background-color: #03dac5;
+}
+
+.actions a:hover {
+  background-color: #22c5b5;
+}

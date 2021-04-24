@@ -7,7 +7,10 @@ import Register from "./components/auth/Register";
 import Logout from "./components/auth/Logout";
 import Home from "./components/Layout/Home";
 import Category from "./components/Layout/Category";
-import Calendar from "./components/Calendar"
+import Calendar from "./components/Calendar";
+import Cart from "./components/Cart/Cart";
+import Basket from "./components/Cart/Basket";
+import { CartProvider } from "./components/Cart/CartContext";
 
 //Redux
 import { Provider } from "react-redux";
@@ -39,7 +42,10 @@ function App() {
             <Route path="/logout" component={Logout} />
             <Route path="/category" component={Category} />
             <Route path="/calendar" component={Calendar} />
-
+            <CartProvider>
+              <Route path="/cart" component={Cart} />
+              <Route path="/basket" component={Basket} />
+            </CartProvider>
           </Switch>
         </Fragment>
       </BrowserRouter>
